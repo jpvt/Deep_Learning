@@ -16,4 +16,10 @@
 
 ```python
 from tail_scratch_nn import DNN
+
+nn = DNN()
+
+nn.fit(X,y)
+
+nn.train([X.shape[0], y.shape[0]], iterations=100, learning_rate=0.1, adam_optimizer=True)
 ```
