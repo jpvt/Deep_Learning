@@ -1,0 +1,3 @@
+numpy
+matplotlib
+tail-scratch-nn==1.0
