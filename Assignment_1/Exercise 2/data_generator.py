@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def generate_data(data_size, train_test_split=0.1):
     """
     Args : 
