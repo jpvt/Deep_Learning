@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from activation_functios import *
+from .activation_functions import *
 
 class DNN():
     def __init__(self):
