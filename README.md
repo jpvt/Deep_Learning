@@ -1,4 +1,4 @@
-[![author](https://img.shields.io/badge/author-jpvt-purple.svg)](https://github.com/felipehonorato1)
+[![author](https://img.shields.io/badge/author-felipehonorato1-purple.svg)](https://github.com/felipehonorato1)
 [![author](https://img.shields.io/badge/author-ItamarRocha-black.svg)](https://github.com/ItamarRocha) 
 [![author](https://img.shields.io/badge/author-joallace-blue.svg)](https://github.com/joallace) 
 [![author](https://img.shields.io/badge/author-jpvt-red.svg)](https://github.com/jpvt)  
@@ -9,7 +9,15 @@
 Repository dedicated to Deep Learning Course took at the Federal University of Paraíba, Brazil
 
 ## Table of Contents
+- [Books](#books)
+- [Setup](#setup)
+- [Code](#code)
+- [Authors](#authors)
+
+## Books
 
 ## Setup
+
+## Code
 
 ## Authors
