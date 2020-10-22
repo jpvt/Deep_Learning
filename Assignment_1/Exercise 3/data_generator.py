@@ -11,17 +11,17 @@ def generate_losangles(data_size, quadrant):
 
     if quadrant == 1:
       x = random.uniform(-1,0)
-      y = random.uniform(-1-x, 0)
+      y = random.uniform(0,x+1)
       points.append([x,y,quadrant])
 
     if quadrant == 2:
-      x = random.uniform(-1,0)
+      x = random.uniform(0,1)
       y = random.uniform(-1+x, 0)
       points.append([x,y,quadrant])
 
     if quadrant == 3:
-      x = random.uniform(0,1)
-      y = random.uniform(-1+x, 0)
+      x = random.uniform(-1,0)
+      y = random.uniform(-1-x, 0)
       points.append([x,y,quadrant])
 
   return points
