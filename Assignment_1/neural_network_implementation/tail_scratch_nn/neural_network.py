@@ -23,7 +23,7 @@ class DNN():
         self.v = {}
         self.s = {}
 
-    def fit(self, X_train, y_train, X_val, y_val, hidden=relu, output=softmax):
+    def fit(self, X_train, y_train, X_val, y_val, hidden="relu", output="softmax"):
         """
         Args : 
             X_train = input data of shape (n_x, number_of_examples).
@@ -38,20 +38,22 @@ class DNN():
         self.X_val = X_val
         self.y_val = y_val
         self.m = X_train.shape[1]
-        self.hidden = hidden # function passed as argument to be used on hidden layers
-        self.output = output # function passed as argument to be used on output layers
-        
-        if self.output == sigmoid:
+
+        if output == "sigmoid":
+            self.output = sigmoid # function passed as argument to be used on output layers
             self.output_derivative = sigmoid_derivative
-        elif self.output == softmax:
+        elif output == "softmax":
+            self.output = softmax
             self.output_derivative = softmax_derivative
         else:
             print("output activation not recognized")
             return -1
         
-        if self.hidden == relu:
+        if hidden == "relu":
+            self.hidden = relu
             self.hidden_derivative = relu_derivative
-        elif self.hidden == sigmoid:
+        elif hidden == "sigmoid":
+            self.hidden = sigmoid
             self.hidden_derivative = sigmoid_derivative
         else:
             print("hidden activation not recognized")

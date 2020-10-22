@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name="tail_scratch_nn",
-    version="1.1",
+    version="1.2",
     description="Neural Network Implementation from scratch",
     packages=["tail_scratch_nn"],
     author="Itamar Rocha Filho",
