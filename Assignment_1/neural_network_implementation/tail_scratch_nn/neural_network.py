@@ -23,16 +23,20 @@ class DNN():
         self.v = {}
         self.s = {}
 
-    def fit(self, X_train, y_train, hidden=relu, output=softmax):
+    def fit(self, X_train, y_train, X_val, y_val, hidden=relu, output=softmax):
         """
         Args : 
             X_train = input data of shape (n_x, number_of_examples).
             y_train = label vector of shape (n_y, number_of_examples).
+            X_val = input data of shape (n_x, number_of_examples_validation).
+            y_val = label vector of shape (n_y, number_of_examples_validation).
             hidden : passed as argument the function used on the hidden layers
             output : function used on output layer
         """
         self.X_train = X_train
         self.y_train = y_train
+        self.X_val = X_val
+        self.y_val = y_val
         self.m = X_train.shape[1]
         self.hidden = hidden # function passed as argument to be used on hidden layers
         self.output = output # function passed as argument to be used on output layers
@@ -109,19 +113,31 @@ class DNN():
 
     def predict(self, X):
         """
-        Predicts the value using the propagate function
+        Predicts the value
         
         Args:
             X : data to be used on prediction
         Return:
             y_hat : data predicted
         """
-        self.propagate(X)
-        return self.y_hat
+        A_prev = X
+
+        for l in range(1, self.L):
+            
+            Z = np.dot(self.parameters[f"W{l}"], A_prev) + self.parameters[f"b{l}"]
+
+            if l == self.L - 1:
+                A = self.output(Z)
+            else:
+                A = self.hidden(Z)
+            
+            A_prev = A
+        
+        return A
     
-    def compute_cost(self):
-        pred = self.y_hat.T
-        real = self.y_train.T
+    def compute_cost(self, pred, real):
+        pred = pred.T
+        real = real.T
         n_samples = real.shape[0]
         logp = - np.log(pred[np.arange(n_samples), real.argmax(axis=1)])
         cost = np.sum(logp)/(n_samples)
@@ -189,24 +205,38 @@ class DNN():
             self.parameters[f"b{l}"] -= self.learning_rate * (self.grads[f"db{l}"])
 
     def train(self, dims, learning_rate = 0.01, iterations = 1000, adam_optimizer=False):
+        #ATE AQUI TA SAFE PORRA
         if iterations > 100:
             printing_interval = round(iterations * 0.01)
         else:
             printing_interval = 1
         self.initialize_parameters(dims, adam_optimizer=adam_optimizer)
+        
         costs = []
+        val_costs = []
+
         for i in range(iterations):
             self.propagate(self.X_train)
-            cost = self.compute_cost()
+            cost = self.compute_cost(self.y_hat, self.y_train)
+            
+            y_hat_val = self.predict(self.X_val)
+            val_cost = self.compute_cost(y_hat_val, self.y_val)
+            val_costs.append(val_cost)
+            
             if i % printing_interval == 0:
-                print(f"epoch {i} : {cost}")
+                print(f"EPOCH {i} Train cost : {np.round(cost,8)} | val cost : {np.round(val_cost,8)}")
+                
             costs.append(cost)
+            
             self.backprop()
+            
             if adam_optimizer:
                 self.update_grads_adam(t=i+1, learning_rate=learning_rate)
             else:
                 self.update_grads_gd(learning_rate = learning_rate)
-        plt.plot(np.squeeze(costs))
+
+        plt.plot(np.squeeze(costs), color="blue", label="train")
+        plt.plot(np.squeeze(val_costs), color="orange", label="val")
         plt.ylabel('cost')
         plt.xlabel('iterations (per hundreds)')
         plt.title("Learning rate =" + str(learning_rate))
