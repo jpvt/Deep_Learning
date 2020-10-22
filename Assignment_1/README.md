@@ -9,7 +9,7 @@
 * To install only the Neural Network from scratch package:
 
 ```shell
-> pip install tail-scratch-nn==1.1
+> pip install tail-scratch-nn==1.2
 ```
 
 ## Importing Implementation
