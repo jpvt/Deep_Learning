@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 def f(x):
     y = math.sin(math.pi * x) / (math.pi * x)
